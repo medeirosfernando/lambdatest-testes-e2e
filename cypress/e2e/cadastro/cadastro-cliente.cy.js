@@ -3,6 +3,7 @@
 import { faker } from '@faker-js/faker';
 
 describe('Cadastro', () => {
+  let email= 'example@mail.com';
   let password= faker.internet.password();
 
   beforeEach(() => {
@@ -58,7 +59,7 @@ describe('Cadastro', () => {
     cy.get('#input-lastname').should('be.visible').and('be.enabled').type(faker.person.lastName());
     cy.get('#input-email').should('be.visible').and('be.enabled').type(faker.internet.email());
     cy.get('#input-telephone').should('be.visible').and('be.enabled').type(faker.phone.number({ style: 'national' }))
-    cy.get('#input-password').should('be.visible').and('be.enabled').type(Cypress.env('password'), { log: false })
+    cy.get('#input-password').should('be.visible').and('be.enabled').type(password)
     cy.get('#input-agree').should('be.enabled').check({ force: true })
     cy.get('input[type=submit]').should('be.visible').and('be.enabled').click();
 
@@ -68,10 +69,10 @@ describe('Cadastro', () => {
   it('exibe validação do campo política de privacidade', () => {
     cy.get('#input-firstname').should('be.visible').and('be.enabled').type(faker.person.firstName());
     cy.get('#input-lastname').should('be.visible').and('be.enabled').type(faker.person.lastName());
-    cy.get('#input-email').should('be.visible').and('be.enabled').type(Cypress.env('email'), { log: false });
+    cy.get('#input-email').should('be.visible').and('be.enabled').type(faker.internet.email());
     cy.get('#input-telephone').should('be.visible').and('be.enabled').type(faker.phone.number({ style: 'national' }))
-    cy.get('#input-password').should('be.visible').and('be.enabled').type(Cypress.env('password'), { log: false })
-    cy.get('#input-confirm').should('be.visible').and('be.enabled').type(Cypress.env('password'), { log: false })
+    cy.get('#input-password').should('be.visible').and('be.enabled').type(password)
+    cy.get('#input-confirm').should('be.visible').and('be.enabled').type(password)
     cy.get('input[type=submit]').should('be.visible').and('be.enabled').click();
 
     cy.contains('#account-register > .alert', ' Warning: You must agree to the Privacy Policy!').should('be.visible')
@@ -82,10 +83,10 @@ describe('Cadastro', () => {
   it('cadastra cliente existente', () => {
     cy.get('#input-firstname').should('be.visible').and('be.enabled').type(faker.person.firstName());
     cy.get('#input-lastname').should('be.visible').and('be.enabled').type(faker.person.lastName());
-    cy.get('#input-email').should('be.visible').and('be.enabled').type(Cypress.env('email'), { log: false });
+    cy.get('#input-email').should('be.visible').and('be.enabled').type(email);
     cy.get('#input-telephone').should('be.visible').and('be.enabled').type(faker.phone.number({ style: 'national' }))
-    cy.get('#input-password').should('be.visible').and('be.enabled').type(Cypress.env('password'), { log: false })
-    cy.get('#input-confirm').should('be.visible').and('be.enabled').type(Cypress.env('password'), { log: false })
+    cy.get('#input-password').should('be.visible').and('be.enabled').type(password)
+    cy.get('#input-confirm').should('be.visible').and('be.enabled').type(password)
     cy.get('#input-agree').should('be.enabled').check({ force: true })
     cy.get('input[type=submit]').should('be.visible').and('be.enabled').click();
 
