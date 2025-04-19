@@ -3,6 +3,7 @@
 import { faker } from '@faker-js/faker';
 
 describe('Cadastro', () => {
+  let password= faker.internet.password();
 
   beforeEach(() => {
     cy.visit('/');
@@ -16,8 +17,8 @@ describe('Cadastro', () => {
     cy.get('#input-lastname').should('be.visible').and('be.enabled').type(faker.person.lastName());
     cy.get('#input-email').should('be.visible').and('be.enabled').type(faker.internet.email());
     cy.get('#input-telephone').should('be.visible').and('be.enabled').type(faker.phone.number({ style: 'national' }))
-    cy.get('#input-password').should('be.visible').and('be.enabled').type(Cypress.env('password'), { log: false })
-    cy.get('#input-confirm').should('be.visible').and('be.enabled').type(Cypress.env('password'), { log: false })
+    cy.get('#input-password').should('be.visible').and('be.enabled').type(password);
+    cy.get('#input-confirm').should('be.visible').and('be.enabled').type(password);
     cy.get('#input-agree').should('be.enabled').check({ force: true })
     cy.get('input[type=submit]').should('be.visible').and('be.enabled').click();
 
