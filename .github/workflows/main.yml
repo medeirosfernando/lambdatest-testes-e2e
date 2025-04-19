@@ -1,16 +1,17 @@
 name: Cypress Tests using Cypress Docker Image
-on: [push]
+
+on: push
+
 jobs:
- cypress-run:
- runs-on: ubuntu-latest
- container: cypress/browsers:node12.18.3-chrome87-ff82
- steps:
- — name: Checkout
- uses: actions/checkout@v2
-# Install NPM dependencies, cache them correctly
- # and run all Cypress tests
- — name: cypress run
- uses: cypress-io/github-action@v2
- with:
- # Specify Browser since container image is compile with Firefox
- browser: chrome
+  cypress-run:
+    runs-on: ubuntu-24.04
+    container:
+      image: cypress/browsers:22.12.0
+      options: --user 1001
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
