@@ -1,0 +1,34 @@
+{
+  "name": "lambdatest-testes-e2e",
+  "version": "1.0.0",
+  "description": "Testes automatizados E2E para o site LambdaTest usando Cypress",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open",
+    "test:prod": "cypress run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/medeirosfernando/lambdatest-testes-e2e.git"
+  },
+  "keywords": [
+    "Cypress",
+    "E2E",
+    "automação",
+    "de",
+    "testes",
+    "LambdaTest",
+    "testes",
+    "automatizados"
+  ],
+  "author": "Fernando Medeiros",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/medeirosfernando/lambdatest-testes-e2e/issues"
+  },
+  "homepage": "https://github.com/medeirosfernando/lambdatest-testes-e2e#readme",
+  "devDependencies": {
+    "@faker-js/faker": "^9.7.0",
+    "cypress": "^14.3.0"
+  }
+}
