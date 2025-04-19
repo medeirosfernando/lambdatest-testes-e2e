@@ -14,7 +14,7 @@ describe('Cadastro', () => {
   it('cadastra cliente com sucesso', () => {
     cy.get('#input-firstname').should('be.visible').and('be.enabled').type(faker.person.firstName());
     cy.get('#input-lastname').should('be.visible').and('be.enabled').type(faker.person.lastName());
-    cy.get('#input-email').should('be.visible').and('be.enabled').type(Cypress.env('email'), { log: false });
+    cy.get('#input-email').should('be.visible').and('be.enabled').type(faker.internet.email());
     cy.get('#input-telephone').should('be.visible').and('be.enabled').type(faker.phone.number({ style: 'national' }))
     cy.get('#input-password').should('be.visible').and('be.enabled').type(Cypress.env('password'), { log: false })
     cy.get('#input-confirm').should('be.visible').and('be.enabled').type(Cypress.env('password'), { log: false })
