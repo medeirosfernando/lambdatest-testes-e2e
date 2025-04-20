@@ -2,9 +2,9 @@
 
 import { faker } from '@faker-js/faker';
 
-describe('Cadastro', () => {
-  let email= 'example@mail.com';
-  let password= faker.internet.password();
+describe('Registro de conta no website LambdaTest', () => {
+  let email = 'example@mail.com';
+  let password = faker.internet.password();
 
   beforeEach(() => {
     cy.visit('/');
@@ -13,7 +13,7 @@ describe('Cadastro', () => {
     cy.url().should('eq', `${Cypress.config().baseUrl}/index.php?route=account/register`)
   });
 
-  it('cadastra cliente com sucesso', () => {
+  it('registra o usuário ao preencher todos os campos obrigatórios e aceitar os termos', () => {
     cy.get('#input-firstname').should('be.visible').and('be.enabled').type(faker.person.firstName());
     cy.get('#input-lastname').should('be.visible').and('be.enabled').type(faker.person.lastName());
     cy.get('#input-email').should('be.visible').and('be.enabled').type(faker.internet.email());
@@ -27,7 +27,22 @@ describe('Cadastro', () => {
     cy.contains('h1', ' Your Account Has Been Created!').should('be.visible')
   });
 
-  it('exibe validação do formulário', () => {
+  it('registra o usuário e inscreve no boletim informativo ao marcar a opção correspondente', () => {
+    cy.get('#input-firstname').should('be.visible').and('be.enabled').type(faker.person.firstName());
+    cy.get('#input-lastname').should('be.visible').and('be.enabled').type(faker.person.lastName());
+    cy.get('#input-email').should('be.visible').and('be.enabled').type(faker.internet.email());
+    cy.get('#input-telephone').should('be.visible').and('be.enabled').type(faker.phone.number({ style: 'national' }))
+    cy.get('#input-password').should('be.visible').and('be.enabled').type(password);
+    cy.get('#input-confirm').should('be.visible').and('be.enabled').type(password);
+    cy.get('.custom-control-label').first().click();
+    cy.get('#input-agree').should('be.enabled').check({ force: true })
+    cy.get('input[type=submit]').should('be.visible').and('be.enabled').click();
+
+    cy.url().should('eq', `${Cypress.config().baseUrl}/index.php?route=account/success`)
+    cy.contains('h1', ' Your Account Has Been Created!').should('be.visible')
+  });
+
+  it('exibe mensagem de erro ao tentar registrar com campos obrigatórios em branco', () => {
     cy.get('#input-firstname').should('be.visible').and('be.enabled').clear();
     cy.get('#input-lastname').should('be.visible').and('be.enabled').clear();
     cy.get('#input-email').should('be.visible').and('be.enabled').clear();
@@ -47,26 +62,25 @@ describe('Cadastro', () => {
     ])
   });
 
-  it.skip('exibe validação do campo email', () => {
-    cy.get('#input-firstname').should('be.visible').and('be.enabled').type(faker.person.firstName());
-    cy.get('#input-lastname').should('be.visible').and('be.enabled').type(faker.person.lastName());
-    cy.get('#input-email').should('be.visible').and('be.enabled').type('email', { log: false });
-    cy.get('input[type=submit]').should('be.visible').and('be.enabled').click();
+  it('exibe mensagem com a política de privacidade', () => {
+    cy.contains('a', 'Privacy Policy').should('be.visible').click();
+    cy.get('.modal-content').should('be.visible').and('contain', 'Privacy Policy')
   });
 
-  it('exibe validação do campo confirmação de senha', () => {
+  it('exibe mensagem de erro ao inserir senhas diferentes nos campos de senha e confirmação', () => {
     cy.get('#input-firstname').should('be.visible').and('be.enabled').type(faker.person.firstName());
     cy.get('#input-lastname').should('be.visible').and('be.enabled').type(faker.person.lastName());
     cy.get('#input-email').should('be.visible').and('be.enabled').type(faker.internet.email());
     cy.get('#input-telephone').should('be.visible').and('be.enabled').type(faker.phone.number({ style: 'national' }))
     cy.get('#input-password').should('be.visible').and('be.enabled').type(password)
+    cy.get('#input-confirm').should('be.visible').and('be.enabled').type("123qwe@@");
     cy.get('#input-agree').should('be.enabled').check({ force: true })
     cy.get('input[type=submit]').should('be.visible').and('be.enabled').click();
 
     cy.get('.text-danger').should('be.visible').and('contain', 'Password confirmation does not match password!')
   });
 
-  it('exibe validação do campo política de privacidade', () => {
+  it('impede o registro quando os termos e condições não são aceitos', () => {
     cy.get('#input-firstname').should('be.visible').and('be.enabled').type(faker.person.firstName());
     cy.get('#input-lastname').should('be.visible').and('be.enabled').type(faker.person.lastName());
     cy.get('#input-email').should('be.visible').and('be.enabled').type(faker.internet.email());
@@ -78,9 +92,7 @@ describe('Cadastro', () => {
     cy.contains('#account-register > .alert', ' Warning: You must agree to the Privacy Policy!').should('be.visible')
   });
 
-  // validar tamanho dos campos
-
-  it('cadastra cliente existente', () => {
+  it('bloqueia o registro ao usar um e-mail já associado a uma conta existente', () => {
     cy.get('#input-firstname').should('be.visible').and('be.enabled').type(faker.person.firstName());
     cy.get('#input-lastname').should('be.visible').and('be.enabled').type(faker.person.lastName());
     cy.get('#input-email').should('be.visible').and('be.enabled').type(email);

@@ -1,6 +1,6 @@
 ![cypress](https://www.cypress.io/_astro/cypress-logo.D87396b0.svg)
 
-# Testes E2E com Cypress
+# Testes de UI com Cypress
 
 ## Projeto desenvolvido para estudo pessoal
 
