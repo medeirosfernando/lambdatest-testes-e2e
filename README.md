@@ -1,4 +1,4 @@
-![cypress](https://user-images.githubusercontent.com/25454762/120258163-e5ef0900-c267-11eb-9631-e33eb593f91a.png)
+![cypress](https://www.cypress.io/_astro/cypress-logo.D87396b0.svg)
 
 # Testes E2E com Cypress
 
