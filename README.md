@@ -4,7 +4,9 @@
 
 ## Projeto desenvolvido para estudo pessoal
 
-- [Site](https://ecommerce-playground.lambdatest.io/index.php?route=common/home) 
+- [LambdaTest](https://ecommerce-playground.lambdatest.io/index.php?route=common/home) 
+
+Este projeto apresenta um projeto de automação de testes de UI no website LambdaTest utilizando o framework Cypress.
 
 ## Tecnologias
 
@@ -22,9 +24,9 @@ Instale as dependências:
 
 ## Desafio
 ```sh
-- Elaborar cenários de testes em programação necessária para automatização dos testes.
+- Elaborar casos de testes em programação necessária para automatização dos testes.
 
-- Criar um projeto de automação.
+- Criar um projeto de automação de testes.
 ```
 
 ## Passos para configuração do projeto
